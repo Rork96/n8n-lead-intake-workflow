@@ -1,0 +1,1 @@
+lead_id,timestamp,name,email,phone,message,source,status,priority,reason,duplicate_count,last_seen,classifier_failed,message_truncated

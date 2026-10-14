@@ -1,0 +1,8 @@
+{
+  "alpha":       {"name": "Alex Morgan",  "email": "alex.morgan@example.com", "phone": "(555) 010-0101", "message": "Burst pipe in the basement, water on the floor. Need someone today.", "source": "website"},
+  "alpha_again": {"name": "Alex Morgan",  "email": "alex.morgan@example.com", "phone": "(555) 010-0101", "message": "Sent again by mistake.", "source": "website"},
+  "beta":        {"name": "Blake Rivera", "email": "blake.rivera@example", "phone": "555 010 0102", "message": "Looking for a quote on bathroom renovation.", "source": "facebook"},
+  "gamma":       {"name": "Casey Lee",    "email": "casey.lee@example.com", "phone": "", "message": "", "source": "google"},
+  "delta":       {"name": "Drew Parker",  "email": "drew.parker@example.com", "phone": "+1 555 010 0104", "message": "<2,000+ character message - generate with: python3 -c \"print('Need a quote for a kitchen remodel. ' * 80)\">", "source": "website"},
+  "epsilon":     {"name": "Eli Spammer",  "email": "eli@seo-boost.example.com", "phone": "", "message": "We guarantee page-one Google rankings in 7 days. Reply for a free audit.", "source": "website"}
+}

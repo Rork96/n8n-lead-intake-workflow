@@ -1,0 +1,127 @@
+{
+  "name": "Lead Intake - Error Alert",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "dcf7550a-2d14-4f53-ba1c-3bc0a1648ebd",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "adm-chat",
+              "name": "ADMIN_CHAT_ID",
+              "type": "string",
+              "value": "YOUR_TELEGRAM_CHAT_ID"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "768ce8cb-8aa4-4778-993e-6d3994ac1b76",
+      "name": "Admin Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fmt-text",
+              "name": "text",
+              "type": "string",
+              "value": "=⚠ LEAD INTAKE ERROR\nWorkflow: {{ $json.workflow.name }}\nNode: {{ $json.execution.lastNodeExecuted || \"unknown\" }}\nError: {{ ($json.execution.error && $json.execution.error.message) || \"n/a\" }}\nRun: {{ $json.execution.url || $json.execution.id }}"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "899ba7ef-0d09-4634-b46d-3b73bdc487f4",
+      "name": "Format Alert",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        448,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $(\"Admin Config\").first().json.ADMIN_CHAT_ID }}",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "ff69e950-b2f0-4a9e-908b-585bf15f5ff9",
+      "name": "Telegram Admin Alert",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        672,
+        0
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Admin Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Admin Config": {
+      "main": [
+        [
+          {
+            "node": "Format Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Alert": {
+      "main": [
+        [
+          {
+            "node": "Telegram Admin Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  }
+}
